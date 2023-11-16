@@ -22,10 +22,6 @@ public class Main {
         }
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(args[0]))) {
-            int lines = 0;
-            while (bufferedReader.readLine() != null) {
-                lines++;
-            }
             Map<String, List<App>> categorised = bufferedReader.lines()
                     .skip(1)
                     .map(row -> row.trim().split(","))
@@ -42,9 +38,6 @@ public class Main {
                     String name = app.getName();
                     double rating = app.getRating();
                     double discarded = 0;
-                    if (rating != null) {
-                        discarded++;
-                    }
                     ratings.put(name, rating);
                     double highest = Collections.max(ratings.values());
                     double lowest = Collections.min(ratings.values());
@@ -58,8 +51,6 @@ public class Main {
                 }
 
             }
-
-            System.out.println("Total lines in file: " + lines);
 
         }
     }
