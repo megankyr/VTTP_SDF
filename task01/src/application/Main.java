@@ -33,11 +33,8 @@ public class Main {
                             Double.parseDouble(fields[COL_RATING])))
                     .collect(Collectors.groupingBy(App::getCategory));
 
-            // apps are categorised by category
-
             for (String category : categorised.keySet()) {
                 List<App> apps = categorised.get(category);
-                // retrieve the apps in each category
                 System.out.println("Category: " + category);
                 System.out.println("Count: " + apps.size());
                 for (App app : apps) {
