@@ -3,6 +3,7 @@ package task01.src.application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,40 +22,49 @@ public class Main {
         }
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(args[0]))) {
-            Map<String, Map<String, Integer>> = bufferedReader.readlines();
-
-
-
-
+            int lines = 0;
+            while (bufferedReader.readLine() != null) {
+                lines++;
+            }
             Map<String, List<App>> categorised = bufferedReader.lines()
                     .skip(1)
                     .map(row -> row.trim().split(","))
-                    .map(fields -> new App(fields[COL_NAME], fields[COL_CAT], Double.parseDouble(fields[COL_RATING])))
+                    .map(fields -> new App(fields[COL_NAME], fields[COL_CAT].toUpperCase(),
+                            Double.parseDouble(fields[COL_RATING])))
                     .collect(Collectors.groupingBy(App::getCategory));
+
+            // apps are categorised by category
 
             for (String category : categorised.keySet()) {
                 List<App> apps = categorised.get(category);
-                List
+                // retrieve the apps in each category
                 System.out.println("Category: " + category);
-                System.out.println("Highest: " + Collections.max(apps));
                 System.out.println("Count: " + apps.size());
                 for (App app : apps) {
-                    
-
-
-
-
-
+                    Map<String, Double> ratings = new HashMap<>();
+                    String name = app.getName();
                     double rating = app.getRating();
-                    int size = apps.size();
-                    double average = rating / size;
+                    double discarded = 0;
+                    if (rating != null) {
+                        discarded++;
+                    }
+                    ratings.put(name, rating);
+                    double highest = Collections.max(ratings.values());
+                    double lowest = Collections.min(ratings.values());
+                    double sum = 0;
+                    sum += rating;
+                    double average = sum / apps.size();
+                    System.out.println("Highest: " + highest);
+                    System.out.println("Lowest: " + lowest);
                     System.out.println("Average: " + average);
-                    System.out.println("Highest: " + app.getHighest());
-                    System.out.println("Lowest: " + app.getLowest());
-    
+                    System.out.println("Discarded: " + discarded);
                 }
+
             }
+
+            System.out.println("Total lines in file: " + lines);
 
         }
     }
+
 }
