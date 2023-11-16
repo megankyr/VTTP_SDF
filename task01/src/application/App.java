@@ -1,4 +1,4 @@
-package task01.src.application;
+package application;
 
 public class App {
 
