@@ -35,20 +35,4 @@ public class App {
     public void setRating(double rating) {
         this.rating = rating;
     }
-
-    public double getHighest(){
-        double highest = 0;
-        if (rating > highest){
-            highest = rating;
-        }
-        return highest;
-    }
-
-    public double getLowest(){
-        double lowest = 0;
-        if (rating < lowest){
-        lowest = rating;
-        }
-        return lowest;
-    }
 }
